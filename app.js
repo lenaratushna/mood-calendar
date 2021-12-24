@@ -22,8 +22,18 @@ const moods = document.querySelectorAll('.mood');
 
 moods.forEach(mood => {
 	mood.addEventListener('click', () => {
-        mood.classList.add('selected');
+		// if is already selected, deselect it
+		if (mood.classList.contains('selected')) {
+			mood.classList.remove('selected');
+			activeColor = defaultColor;
+		} else {
+			moods.forEach(mood => {
+				mood.classList.remove('selected');
+			});
+
+			mood.classList.add('selected');
 			activeColor = getComputedStyle(mood).getPropertyValue('color');
+		}
 	});
 });
 
@@ -82,7 +92,7 @@ dates.forEach(date => {
 	}
 
 	const dateEl = createDateEl(date);
-
+   
 	monthEl.appendChild(dateEl);
 });
 
@@ -100,7 +110,7 @@ function createDateEl(date) {
 	const dateEl = document.createElement('div');
 	dateEl.classList.add('days');
 	dateEl.innerHTML = `<span class="circle">${day}</span>`;
-
+    
 	return dateEl;
 }
 
